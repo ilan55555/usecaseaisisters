@@ -1,0 +1,16 @@
+# Secrets & caches
+.env
+__pycache__/
+*.pyc
+*.log
+.logs/
+
+# Données locales
+data/uploads/
+data/vectorstore/
+data/chat_history.json
+
+# Environnements locaux
+.venv/
+.envrc
+.DS_Store
