@@ -12,8 +12,8 @@ conda create -n legal_rag_env python=3.11 -y
 conda activate legal_rag_env
 pip install -r requirements.txt
 
-**3. Configurer les clés API
-**
+**3. Configurer les clés API**
+
 Crée un fichier .env à la racine du projet contenant ta clé OpenAI :
 OPENAI_API_KEY=sk-xxxx
 
@@ -103,10 +103,9 @@ Améliorations prévues
 
 📈 Monitoring et alertes de sécurité
 
-**🗺️ Roadmap
-**
-**Phase 1 – PoC (terminée ✅)
-**
+**🗺️ Roadmap**
+
+**Phase 1 – PoC (terminée ✅)**
  RAG local avec OpenAI embeddings
 
  Interface Streamlit (2 pages)
@@ -117,8 +116,7 @@ Améliorations prévues
 
  Tests end-to-end et anti-hallucination
 
-**Phase 2 – Fiabilisation 🔧
-**
+**Phase 2 – Fiabilisation 🔧**
  Passage complet à ChromaDB ou Qdrant serveur
 
  Nettoyage et validation automatique des métadonnées
@@ -127,8 +125,7 @@ Améliorations prévues
 
  Tests unitaires automatisés (CI/CD)
 
-**Phase 3 – Sécurité & Scalabilité 🔐
-**
+**Phase 3 – Sécurité & Scalabilité 🔐**
  Authentification SSO
 
  Chiffrement complet des données
@@ -137,8 +134,7 @@ Améliorations prévues
 
  Multi-utilisateurs isolés
 
-**Phase 4 – Intelligence améliorée 🧠
-**
+**Phase 4 – Intelligence améliorée 🧠**
  Hybrid Search (texte + sémantique)
 
  Reranking (BGE / ColBERT)
