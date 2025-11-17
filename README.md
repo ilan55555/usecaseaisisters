@@ -1,18 +1,18 @@
 ⚙️ Installation et Configuration
-1. Cloner le projet
+**1. Cloner le projet**
 
 git clone https://github.com/AI-Sisters/test_technique.git
 
 cd legal_rag_poc
 
-2. Créer l’environnement
+**2. Créer l’environnement**
 
 conda create -n legal_rag_env python=3.11 -y
 conda activate legal_rag_env
 pip install -r requirements.txt
 
-3. Configurer les clés API
-
+**3. Configurer les clés API
+**
 Crée un fichier .env à la racine du projet contenant ta clé OpenAI :
 OPENAI_API_KEY=sk-xxxx
 
@@ -23,8 +23,8 @@ OPENAI_API_KEY=sk-xxxx
 streamlit run streamlit_app.py
 Puis ouvre http://localhost:8501
 
-🧩 Structure du projet
-
+**🧩 Structure du projet
+**
 legal_rag_poc/
 ├── streamlit_app.py
 ├── pages/
@@ -102,9 +102,10 @@ Améliorations prévues
 
 📈 Monitoring et alertes de sécurité
 
-🗺️ Roadmap
-Phase 1 – PoC (terminée ✅)
-
+**🗺️ Roadmap
+**
+**Phase 1 – PoC (terminée ✅)
+**
  RAG local avec OpenAI embeddings
 
  Interface Streamlit (2 pages)
@@ -115,8 +116,8 @@ Phase 1 – PoC (terminée ✅)
 
  Tests end-to-end et anti-hallucination
 
-Phase 2 – Fiabilisation 🔧
-
+**Phase 2 – Fiabilisation 🔧
+**
  Passage complet à ChromaDB ou Qdrant serveur
 
  Nettoyage et validation automatique des métadonnées
@@ -125,8 +126,8 @@ Phase 2 – Fiabilisation 🔧
 
  Tests unitaires automatisés (CI/CD)
 
-Phase 3 – Sécurité & Scalabilité 🔐
-
+**Phase 3 – Sécurité & Scalabilité 🔐
+**
  Authentification SSO
 
  Chiffrement complet des données
@@ -135,8 +136,8 @@ Phase 3 – Sécurité & Scalabilité 🔐
 
  Multi-utilisateurs isolés
 
-Phase 4 – Intelligence améliorée 🧠
-
+**Phase 4 – Intelligence améliorée 🧠
+**
  Hybrid Search (texte + sémantique)
 
  Reranking (BGE / ColBERT)
@@ -145,8 +146,8 @@ Phase 4 – Intelligence améliorée 🧠
 
  Mémoire conversationnelle par utilisateur
 
-📚 Technologies clés
-
+**📚 Technologies clés
+**
 Interface : Streamlit
 LLM : OpenAI GPT-4 (API)
 Vectorisation : SentenceTransformers / OpenAI embeddings
