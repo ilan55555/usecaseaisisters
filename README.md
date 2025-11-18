@@ -1,76 +1,83 @@
-⚙️ Installation et Configuration
+⚖️ Legal RAG PoC – Extraction d’information juridique assistée par IA
 
-**1. Cloner le projet**
+PoC démontrant une solution RAG locale, sécurisée et contrôlable, permettant d’interroger un corpus juridique sans fuite de données. Interface Streamlit, réponses fondées uniquement sur les documents internes, anti-hallucination et traçabilité des sources.
 
-git clone https://github.com/AI-Sisters/test_technique.git
-
+⚙️ Installation
+git clone https://github.com/ilan55555/usecaseaisisters.git
 cd legal_rag_poc
 
-**2. Créer l’environnement**
-
+1. Environnement
 conda create -n legal_rag_env python=3.11 -y
 conda activate legal_rag_env
 pip install -r requirements.txt
 
-**3. Configurer les clés API**
+2. Clés API
 
-Crée un fichier .env à la racine du projet contenant ta clé OpenAI :
+Créer un fichier .env à la racine du projet :
+
 OPENAI_API_KEY=sk-xxxx
 
-💡 Pour Claude, Gemini ou un autre LLM, modifie src/rag.py pour pointer vers une autre API compatible (Anthropic, Mistral, etc.).
 
-🚀 Lancement de l’application
+💡 Pour utiliser Claude, Gemini ou un autre LLM, adapter src/rag.py.
 
+🚀 Lancement
 streamlit run streamlit_app.py
-Puis ouvre http://localhost:8501
 
-**🧩 Structure du projet
-**
+
+Puis ouvrir : http://localhost:8501
+
+🧩 Structure du projet
 legal_rag_poc/
 ├── streamlit_app.py
 ├── pages/
-│ ├── 1_Chat.py
-│ └── 2_Gestion_docs.py
+│   ├── 1_Chat.py
+│   └── 2_Gestion_docs.py
 ├── src/
-│ ├── embeddings.py
-│ ├── vectorstore.py
-│ ├── rag.py
-│ ├── config.py
-│ ├── security.py
-│ └── persist.py
+│   ├── embeddings.py
+│   ├── vectorstore.py
+│   ├── rag.py
+│   ├── config.py
+│   ├── security.py
+│   └── persist.py
 ├── data/
-│ ├── uploads/
-│ ├── vectorstore/
-│ └── chat_history.json
+│   ├── uploads/
+│   ├── vectorstore/
+│   └── chat_history.json
 └── tests/
-├── test_smoke.py
-└── test_rag_guardrails.py
+    ├── test_smoke.py
+    └── test_rag_guardrails.py
 
 🧠 Fonctionnement
 
-L’utilisateur charge des documents (.txt, .csv, .html)
+Upload de documents internes (.txt, .csv, .html)
 
-Le texte est nettoyé, segmenté, puis vectorisé (embeddings)
+Nettoyage → segmentation → vectorisation (embeddings)
+
+Indexation dans une base vectorielle locale (Qdrant)
 
 À chaque question :
 
-Les passages les plus pertinents sont recherchés dans la base vectorielle
+recherche des passages les plus pertinents
 
-Le LLM génère une réponse fondée uniquement sur ces passages
+génération d’une réponse strictement basée sur ces passages
 
-L’historique des conversations est enregistré localement dans data/chat_history.json
+Historique des conversations enregistré dans data/chat_history.json
 
 🧪 Tests
 
-Pour exécuter tous les tests :
+Exécuter tous les tests :
+
 python -m pytest -s -q
 
-Tests inclus
 
-test_smoke.py → Vérifie que le pipeline RAG complet fonctionne
-test_rag_guardrails.py → Vérifie qu’aucune réponse n’est générée hors du corpus interne
+Tests inclus :
 
-Exemple de sortie :
+test_smoke.py → vérifie que le pipeline RAG complet fonctionne (ingestion → recherche → réponse)
+
+test_rag_guardrails.py → vérifie qu’aucune réponse n’est générée hors du corpus interne
+
+Exemple de sortie attendue :
+
 Réponse LLM : La clause de non-concurrence dure 12 mois après la rupture du contrat.
 ✅ OK
 
@@ -79,9 +86,9 @@ Mesures déjà en place
 
 Données stockées uniquement en local dans data/
 
-Aucun envoi des documents vers Internet
+Aucune transmission des documents bruts vers Internet
 
-API LLM utilisée uniquement pour embeddings et génération de réponses
+L’API LLM est utilisée uniquement pour les embeddings et la génération
 
 Données anonymisées pour la PoC
 
@@ -89,13 +96,13 @@ Session utilisateur temporaire (timeout)
 
 Aucun log contenant de données sensibles
 
-Améliorations prévues
+Améliorations possibles (roadmap sécurité)
 
 🔒 Chiffrement des fichiers et embeddings (AES-256)
 
 🔑 Authentification unique (SSO)
 
-🧩 Gestion des rôles et droits d’accès
+🧩 Gestion des rôles et droits d’accès (RBAC)
 
 📜 Audit log complet des accès et requêtes
 
@@ -103,53 +110,61 @@ Améliorations prévues
 
 📈 Monitoring et alertes de sécurité
 
-**🗺️ Roadmap**
+🗺️ Roadmap
+Phase 1 – PoC (terminée ✅)
 
-**Phase 1 – PoC (terminée ✅)**
- RAG local avec OpenAI embeddings
+RAG local avec embeddings OpenAI / SentenceTransformers
 
- Interface Streamlit (2 pages)
+Interface Streamlit (2 pages : Chat + Gestion des documents)
 
- Upload et vectorisation automatique
+Upload et vectorisation automatiques
 
- Historique conversationnel persistant
+Historique conversationnel persistant
 
- Tests end-to-end et anti-hallucination
+Tests end-to-end et garde-fous anti-hallucination
 
-**Phase 2 – Fiabilisation 🔧**
- Passage complet à ChromaDB ou Qdrant serveur
+Phase 2 – Fiabilisation 🔧
 
- Nettoyage et validation automatique des métadonnées
+Passage complet à Qdrant serveur (ou ChromaDB serveur)
 
- Journalisation et gestion des erreurs
+Nettoyage et validation automatique des métadonnées
 
- Tests unitaires automatisés (CI/CD)
+Journalisation et gestion d’erreurs plus fines
 
-**Phase 3 – Sécurité & Scalabilité 🔐**
- Authentification SSO
+Intégration CI/CD (tests automatisés à chaque push)
 
- Chiffrement complet des données
+Phase 3 – Sécurité & Scalabilité 🔐
 
- Audit logs + supervision
+Authentification SSO
 
- Multi-utilisateurs isolés
+Chiffrement complet des données (au repos et en transit)
 
-**Phase 4 – Intelligence améliorée 🧠**
- Hybrid Search (texte + sémantique)
+Audit logs + supervision
 
- Reranking (BGE / ColBERT)
+Multi-utilisateurs avec isolation des espaces de travail
 
- Fine-tuning sur corpus juridique
+Phase 4 – Intelligence améliorée 🧠
 
- Mémoire conversationnelle par utilisateur
+Recherche hybride (full-text + sémantique)
 
-**📚 Technologies clés
-**
+Reranking (ex. BGE / ColBERT)
+
+Fine-tuning / adaptation sur corpus juridique interne
+
+Mémoire conversationnelle par utilisateur (contexte long terme)
+
+📚 Technologies clés
+
 Interface : Streamlit
-LLM : OpenAI GPT-4 (API)
+
+LLM : OpenAI GPT-4 (via API)
+
 Vectorisation : SentenceTransformers / OpenAI embeddings
-Stockage vectoriel : Qdrant ou ChromaDB
+
+Stockage vectoriel : Qdrant (local) / compatible ChromaDB
+
 Tests : Pytest
+
 Configuration : dotenv + Pydantic
 
 👤 Auteur
